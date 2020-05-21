@@ -1,0 +1,9 @@
+[Plugin]
+Loader=python3
+Module=qurantools
+IAge=3
+Name=Quran Tools
+Description=Tools for editing Quranic text
+Authors=Khaled Hosny <khaledhosny@eglug.org>
+Copyright=Copyright © 2020 Khaled Hosny <khaledhosny@eglug.org>
+Website=http://www.gedit.org
