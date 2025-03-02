@@ -1,12 +1,12 @@
 from gi.repository import GObject, Gdk, Gtk, Gedit
 
+
 class QuranTools(GObject.Object, Gedit.WindowActivatable):
     __gtype_name__ = "QuranTools"
 
     window = GObject.property(type=Gedit.Window)
 
-    CHARS = ["\u06D6", "\u06D7", "\u06D8", "\u06D9", "\u06DA", "\u06DB",
-             "\u06DC"]
+    CHARS = ["\u06d6", "\u06d7", "\u06d8", "\u06d9", "\u06da", "\u06db", "\u06dc"]
     BUTTON_CSS_CLASS = "QuranButton"
 
     def __init__(self):
@@ -17,17 +17,21 @@ class QuranTools(GObject.Object, Gedit.WindowActivatable):
         if self.box is not None:
             return
 
-        css = f'''
+        css = f"""
         .{self.BUTTON_CSS_CLASS} {{
             font-family: "Amiri Quran";
             font-size: 20pt;
         }}
-        '''
+        """
         provider = Gtk.CssProvider()
         provider.load_from_data(css.encode("utf-8"))
         context = Gtk.StyleContext()
         screen = Gdk.Screen.get_default()
-        context.add_provider_for_screen(screen, provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        context.add_provider_for_screen(
+            screen,
+            provider,
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
+        )
 
         self.box = Gtk.ButtonBox()
         self.box.set_layout(Gtk.ButtonBoxStyle.CENTER)
