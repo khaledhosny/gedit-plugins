@@ -1,4 +1,4 @@
-from gi.repository import GObject, Gdk, Gtk, Gedit
+from gi.repository import GObject, Gdk, Gtk, Gedit, Tepl
 
 
 class QuranTools(GObject.Object, Gedit.WindowActivatable):
@@ -11,10 +11,10 @@ class QuranTools(GObject.Object, Gedit.WindowActivatable):
 
     def __init__(self):
         GObject.Object.__init__(self)
-        self.box = None
+        self.item = None
 
     def do_activate(self):
-        if self.box is not None:
+        if self.item is not None:
             return
 
         css = f"""
@@ -33,23 +33,24 @@ class QuranTools(GObject.Object, Gedit.WindowActivatable):
             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
         )
 
-        self.box = Gtk.ButtonBox()
-        self.box.set_layout(Gtk.ButtonBoxStyle.CENTER)
+        box = Gtk.ButtonBox()
+        box.set_layout(Gtk.ButtonBoxStyle.CENTER)
         for c in self.CHARS:
             button = Gtk.Button.new_with_label(c)
             button.connect("clicked", self.on_button_clicked)
             button.get_style_context().add_class(self.BUTTON_CSS_CLASS)
-            self.box.pack_start(button, True, True, 0)
-        self.box.show_all()
+            box.pack_start(button, True, True, 0)
+        box.show_all()
 
         panel = self.window.get_bottom_panel()
-        panel.add_titled(self.box, "QuranTools", _("Quran Tools"))
+        self.item = Tepl.PanelItem.new(box, "QuranTools", _("Quran Tools"), None, 0)
+        panel.add(self.item)
 
     def do_deactivate(self):
-        if self.box is None:
+        if self.item is None:
             return
         panel = self.window.get_bottom_panel()
-        panel.remove(self.box)
+        panel.remove(self.item)
 
     def do_update_state(self):
         pass
