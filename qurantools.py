@@ -6,7 +6,7 @@ class QuranTools(GObject.Object, Gedit.WindowActivatable):
 
     window = GObject.property(type=Gedit.Window)
 
-    CHARS = ["\u06d6", "\u06d7", "\u06d8", "\u06d9", "\u06da", "\u06db", "\u06dc"]
+    CHARS = ["\u06d6", "\u06d7", "\u06da", "\u06d9", "\u06d8", "\u06db", "\u06dc"]
     BUTTON_CSS_CLASS = "QuranButton"
 
     def __init__(self):
